@@ -2,12 +2,14 @@ package org.kde.kdeconnect.plugins.clipboard
 
 import android.app.Application
 import android.content.Context
+import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.spyk
+import io.mockk.unmockkObject
 import io.mockk.verify
 import org.junit.After
 import org.junit.Assert
@@ -17,6 +19,7 @@ import org.junit.runner.RunWith
 import org.kde.kdeconnect.Device
 import org.kde.kdeconnect.MockSharedPreference
 import org.kde.kdeconnect.NetworkPacket
+import org.kde.kdeconnect.helpers.FilesHelper
 import org.kde.kdeconnect_tp.R
 
 @RunWith(AndroidJUnit4::class)
@@ -31,6 +34,7 @@ class ClipboardPluginTest {
     private companion object {
         const val SKIP_SENSITIVE_PREF_KEY = "clipboard_skip_sensitive_sync"
         const val PREFERENCES_NAME = "testDevice_ClipboardPlugin_preferences"
+        const val CLIPBOARD_FILE_PACKET = "kdeconnect.clipboard.file"
     }
 
     @Before
@@ -63,6 +67,7 @@ class ClipboardPluginTest {
     fun cleanup() {
         packet = null // Remove old capture packet
         preferences.edit().clear().apply()
+        unmockkObject(ClipboardListener.Companion)
     }
 
     // REMOTE -> LOCAL
@@ -127,6 +132,7 @@ class ClipboardPluginTest {
         val content = "B7n30xe0NNO6Y1J7PXOFj6pGd"
         every { clipboardListener.currentContent } returns content
         every { clipboardListener.currentContentType } returns ClipboardListener.ClipboardContentType.Text
+        every { clipboardListener.updateTimestamp } returns 0L
 
         clipboardPlugin.onCreate()
 
@@ -176,5 +182,31 @@ class ClipboardPluginTest {
         val sentPacket = checkNotNull(packet)
         Assert.assertEquals("kdeconnect.clipboard", sentPacket.type)
         Assert.assertEquals(content, sentPacket.getString("content"))
+    }
+
+    @Test
+    fun testClipboardFilePacketsAreAdvertised() {
+        Assert.assertTrue(clipboardPlugin.supportedPacketTypes.contains(CLIPBOARD_FILE_PACKET))
+        Assert.assertTrue(clipboardPlugin.outgoingPacketTypes.contains(CLIPBOARD_FILE_PACKET))
+    }
+
+    @Test
+    fun testPropagateClipboardFile() {
+        val uri = Uri.parse("content://org.kde.kdeconnect.test/image.png")
+        val filePacket = NetworkPacket(CLIPBOARD_FILE_PACKET).apply {
+            set("filename", "image.png")
+        }
+
+        every { device.supportsPacketType(CLIPBOARD_FILE_PACKET) } returns true
+        mockkObject(FilesHelper)
+        try {
+            every { FilesHelper.uriToNetworkPacket(context, uri, CLIPBOARD_FILE_PACKET) } returns filePacket
+
+            clipboardPlugin.propagateClipboard(uri)
+
+            verify(timeout = 1000) { device.sendPacket(filePacket) }
+        } finally {
+            unmockkObject(FilesHelper)
+        }
     }
 }

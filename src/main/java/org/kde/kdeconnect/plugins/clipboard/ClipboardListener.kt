@@ -10,6 +10,7 @@ import android.content.ClipData
 import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -26,6 +27,7 @@ class ClipboardListener {
     enum class ClipboardContentType {
         Text,
         Password,
+        File,
     }
 
     interface ClipboardObserver {
@@ -36,6 +38,8 @@ class ClipboardListener {
 
     private val context: Context
     var currentContent: String? = null
+        private set
+    var currentContentUri: Uri? = null
         private set
     var currentContentType: ClipboardContentType = ClipboardContentType.Text
         private set
@@ -80,14 +84,31 @@ class ClipboardListener {
         try {
             val clip = cm.primaryClip!!
             val item = clip.getItemAt(0)
-            val content = item.coerceToText(context).toString()
             val contentType = detectContentType(clip)
+            val uri = item.uri
 
-            if (content == currentContent && contentType == currentContentType) {
+            if (uri != null && (item.text == null || isImageUri(uri, clip))) {
+                if (uri == currentContentUri && currentContentType == ClipboardContentType.File) {
+                    return
+                }
+                updateTimestamp = System.currentTimeMillis()
+                currentContent = null
+                currentContentUri = uri
+                currentContentType = ClipboardContentType.File
+
+                for (observer in observers) {
+                    observer.clipboardChanged(uri.toString(), ClipboardContentType.File)
+                }
+                return
+            }
+
+            val content = item.coerceToText(context).toString()
+            if (content == currentContent && contentType == currentContentType && currentContentUri == null) {
                 return
             }
             updateTimestamp = System.currentTimeMillis()
             currentContent = content
+            currentContentUri = null
             currentContentType = contentType
 
             for (observer in observers) {
@@ -100,13 +121,39 @@ class ClipboardListener {
 
     fun setText(text: String?) {
         if (this::cm.isInitialized) {
-            if (text == currentContent) {
+            if (text == currentContent && currentContentUri == null) {
                 return
             }
             updateTimestamp = System.currentTimeMillis()
             currentContent = text
+            currentContentUri = null
             currentContentType = ClipboardContentType.Text
             cm.setPrimaryClip(ClipData.newPlainText(null, text))
+        }
+    }
+
+    fun setFile(uri: Uri) {
+        if (this::cm.isInitialized) {
+            if (uri == currentContentUri) {
+                return
+            }
+            updateTimestamp = System.currentTimeMillis()
+            currentContent = null
+            currentContentUri = uri
+            currentContentType = ClipboardContentType.File
+            cm.setPrimaryClip(ClipData.newUri(context.contentResolver, null, uri))
+        }
+    }
+
+    private fun isImageUri(uri: Uri, clip: ClipData): Boolean {
+        val description = clip.description
+        if ((0 until description.mimeTypeCount).any { description.getMimeType(it).startsWith("image/") }) {
+            return true
+        }
+        return try {
+            context.contentResolver.getType(uri)?.startsWith("image/") == true
+        } catch (_: Exception) {
+            false
         }
     }
 
