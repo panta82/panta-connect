@@ -1,6 +1,8 @@
 name: Publish signed F-Droid repository
 
 on:
+  push:
+    paths: [.github/workflows/pages.yml]
   release:
     types: [published]
   workflow_dispatch:
@@ -35,6 +37,10 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release }}
         run: |
+          if [ -z "$RELEASE_TAG" ]; then
+            RELEASE_TAG="$(gh release list --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName')"
+          fi
+          test -n "$RELEASE_TAG"
           mkdir -p release public
           gh release download "$RELEASE_TAG" --pattern 'panta-connect-fdroid.tar.gz' --dir release
           gh release download "$RELEASE_TAG" --pattern 'panta-connect-fdroid.tar.gz.sha256' --dir release
