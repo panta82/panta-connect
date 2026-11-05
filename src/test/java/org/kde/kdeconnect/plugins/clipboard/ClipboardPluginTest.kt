@@ -1,7 +1,11 @@
 package org.kde.kdeconnect.plugins.clipboard
 
 import android.app.Application
+import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.widget.Toast
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -11,6 +15,11 @@ import io.mockk.mockkObject
 import io.mockk.spyk
 import io.mockk.unmockkObject
 import io.mockk.verify
+import io.mockk.slot
+import io.mockk.just
+import io.mockk.Runs
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -207,6 +216,40 @@ class ClipboardPluginTest {
             verify(timeout = 1000) { device.sendPacket(filePacket) }
         } finally {
             unmockkObject(FilesHelper)
+        }
+    }
+
+    @Test
+    fun skipsSensitiveImageWhenPreferenceIsEnabled() {
+        preferences.edit().putBoolean(SKIP_SENSITIVE_PREF_KEY, true).apply()
+        every { clipboardListener.currentContent } returns null
+        every { clipboardListener.currentContentIsSensitive } returns true
+        val observer = slot<ClipboardListener.ClipboardObserver>()
+        every { clipboardListener.registerObserver(capture(observer)) } just Runs
+        clipboardPlugin.onCreate()
+        observer.captured.clipboardChanged("content://images/secret.png", ClipboardListener.ClipboardContentType.File)
+        verify(exactly = 0) { device.sendPacket(any()) }
+    }
+
+    @Test
+    fun manualSendUsesImageInsteadOfItsTextAlternative() {
+        val uri = Uri.parse("content://images/picture.png")
+        val clip = ClipData("image", arrayOf("image/png", "text/plain"), ClipData.Item("caption", null, uri))
+        context.getSystemService(ClipboardManager::class.java).setPrimaryClip(clip)
+        every { context.getString(R.string.send_clipboard) } returns "Send clipboard"
+        every { device.supportsPacketType(CLIPBOARD_FILE_PACKET) } returns true
+        mockkObject(FilesHelper)
+        mockkStatic(Toast::class)
+        val imagePacket = NetworkPacket(CLIPBOARD_FILE_PACKET)
+        try {
+            every { FilesHelper.uriToNetworkPacket(context, uri, CLIPBOARD_FILE_PACKET) } returns imagePacket
+            every { Toast.makeText(any(), any<Int>(), any()) } returns mockk(relaxed = true)
+            clipboardPlugin.getUiMenuEntries().single().onClick(mockk<Activity>(relaxed = true))
+            verify(timeout = 5000) { device.sendPacket(imagePacket) }
+            verify(exactly = 0) { device.sendPacket(match { it.type == "kdeconnect.clipboard" }) }
+        } finally {
+            unmockkObject(FilesHelper)
+            unmockkStatic(Toast::class)
         }
     }
 }

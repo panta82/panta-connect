@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="foreground_notification_no_devices">Nun se conectó con nengún preséu</string>
   <string name="foreground_notification_devices">Coneutóse con %s</string>
   <string name="pref_plugin_telephony">Avisador telefónicu</string>
@@ -165,7 +165,7 @@
   <string name="sftp_saf_permission_explanation">P\'acceder remotamente a los ficheros tienes de configurar allugamientos d\'almacenamientu</string>
   <string name="no_players_connected">Nun s\'atoparon reproductores</string>
   <string name="send_files">Unviar ficheros</string>
-  <string name="pairing_title">Preseos con KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Equí deberíen apaecer los demás preseos que tean executando KDE Connect na mesma rede.</string>
   <string name="device_rename_title">Renomáu del preséu</string>
   <string name="device_rename_confirm">Renomar</string>
@@ -226,7 +226,7 @@
   <string name="take_picture">Llanzamientu de la cámara</string>
   <string name="plugin_photo_desc">Llanza l\'aplicación de la cámara p\'acenciellar la fechura y tresferencia de semeyes</string>
   <string name="no_app_for_opening">Nun atopó nenguna aplicación afayadiza p\'abrir esti ficheru.</string>
-  <string name="remote_keyboard_service">Tecláu remotu de KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Punteru</string>
   <string name="trusted_networks">Redes d\'enfotu</string>
   <string name="trusted_networks_desc">Torga la descubrición automática en redes conocíes</string>

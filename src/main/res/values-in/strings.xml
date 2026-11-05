@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Kirim ke Peranti</string>
   <string name="foreground_notification_no_devices">Belum terhubung ke peranti apa pun</string>
   <string name="foreground_notification_devices">Terhubung ke: %s</string>
@@ -210,7 +210,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">Peranti KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Perangkat lain yang menjalankan KDE Connect dalam jaringan Anda yang sama seharusnya muncul di sini.</string>
   <string name="device_rename_title">Ubah nama peranti</string>
   <string name="device_rename_confirm">Ubah Nama</string>
@@ -283,7 +283,7 @@
   <string name="block_images">Blokir citra-citra dalam notifikasi</string>
   <string name="notification_channel_receivenotification">Notifikasi dari peranti lainnya</string>
   <string name="no_app_for_opening">Tidak menemukan aplikasi yang dapat membuka berkas ini</string>
-  <string name="remote_keyboard_service">Keyboard Remote KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Penunjuk</string>
   <string name="trusted_networks">Jaringan terpercaya</string>
   <string name="trusted_networks_desc">Membatasi autodiscovery untuk mengetahui jaringan</string>

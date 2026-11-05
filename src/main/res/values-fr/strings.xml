@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDEConnect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Envoyer vers un périphérique</string>
   <string name="foreground_notification_no_devices">Connecté à aucun périphérique</string>
   <string name="foreground_notification_devices">Connecté à : %s</string>
@@ -273,7 +273,7 @@
   </string-array>
   <string name="block_notification_contents">Bloquer les contenus de notifications</string>
   <string name="block_notification_images">Bloquer les images de notifications</string>
-  <string name="pairing_title">Périphériques KDEConnect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Les autres périphériques utilisant KDEConnect dans votre réseau apparaissent ici.</string>
   <string name="device_rename_title">Renommer le périphérique</string>
   <string name="device_rename_confirm">Renommer</string>
@@ -349,7 +349,7 @@
   <string name="devices">Périphériques</string>
   <string name="settings_rename">Nom du périphérique</string>
   <string name="settings_dark_mode">Thème sombre</string>
-  <string name="settings_export_logs">Exporter les journaux de KDEConnect</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Générez un fichier avec des informations d\'exécution pouvant aider à résoudre les problèmes.</string>
   <string name="settings_more_settings_title">Plus de paramètres</string>
   <string name="settings_more_settings_text">Les paramètres par appareil sont disponibles dans la rubrique « Paramètres des modules externes » sur l\'appareil.</string>
@@ -364,7 +364,7 @@
   <string name="notification_channel_receivenotification">Notifications provenant d\'autres périphériques</string>
   <string name="findmyphone_preference_title_flashlight">Faire clignoter le flash</string>
   <string name="no_app_for_opening">Aucune application adaptée trouvée pour ouvrir ce fichier.</string>
-  <string name="remote_keyboard_service">Clavier à distance KDEConnect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Pointeur</string>
   <string name="trusted_networks">Réseaux de confiance</string>
   <string name="trusted_networks_desc">Restreindre la découverte automatique aux réseaux connus</string>

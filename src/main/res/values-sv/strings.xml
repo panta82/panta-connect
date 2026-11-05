@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE-anslut</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Skicka till apparat</string>
   <string name="foreground_notification_no_devices">Inte ansluten till någon apparat</string>
   <string name="foreground_notification_devices">Ansluten till: %s</string>
@@ -271,7 +271,7 @@
   </string-array>
   <string name="block_notification_contents">Blockera underrättelseinnehåll</string>
   <string name="block_notification_images">Blockera underrättelsebilder</string>
-  <string name="pairing_title">KDE-anslut apparater</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Andra apparater som kör KDE-anslut i samma nätverk ska synas här.</string>
   <string name="device_rename_title">Byt namn på apparat</string>
   <string name="device_rename_confirm">Byt namn</string>
@@ -345,7 +345,7 @@
   <string name="devices">Apparater</string>
   <string name="settings_rename">Apparatnamn</string>
   <string name="settings_dark_mode">Mörkt tema</string>
-  <string name="settings_export_logs">Exportera loggar från KDE anslut</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Generera en fil med körinformation som kan hjälpa till att felsöka problem.</string>
   <string name="settings_more_settings_title">Fler inställningar</string>
   <string name="settings_more_settings_text">Inställningar per apparat hittas i \'Insticksprograminställningar\' på apparaten.</string>
@@ -360,7 +360,7 @@
   <string name="notification_channel_receivenotification">Underrättelser från andra apparater</string>
   <string name="findmyphone_preference_title_flashlight">Blinka med blixtljuset</string>
   <string name="no_app_for_opening">Inget lämpligt program hittades för att öppna filen</string>
-  <string name="remote_keyboard_service">KDE-anslut fjärrtangentbord</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Pekare</string>
   <string name="trusted_networks">Pålitliga nätverk</string>
   <string name="trusted_networks_desc">Begränsar automatisk upptäckt till kända nätverk</string>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">장치로 보내기</string>
   <string name="foreground_notification_no_devices">연결된 장치 없음</string>
   <string name="foreground_notification_devices">연결됨: %s</string>
@@ -263,7 +263,7 @@
   </string-array>
   <string name="block_notification_contents">알림 내용 숨기기</string>
   <string name="block_notification_images">알림 이미지 숨기기</string>
-  <string name="pairing_title">KDE Connect 장치</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">같은 네트워크에서 KDE Connect를 실행하는 다른 장치가 여기에 표시됩니다.</string>
   <string name="device_rename_title">장치 이름 바꾸기</string>
   <string name="device_rename_confirm">이름 바꾸기</string>
@@ -337,7 +337,7 @@
   <string name="devices">장치</string>
   <string name="settings_rename">장치 이름</string>
   <string name="settings_dark_mode">어두운 테마</string>
-  <string name="settings_export_logs">KDE Connect 로그 내보내기</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">문제 해결을 위해서 실행 정보를 포함하는 파일을 생성합니다.</string>
   <string name="settings_more_settings_title">더 많은 설정</string>
   <string name="settings_more_settings_text">장치별 설정은 각각 장치의 \'플러그인 설정\'에서 확인할 수 있습니다.</string>
@@ -352,7 +352,7 @@
   <string name="notification_channel_receivenotification">다른 장치의 알림</string>
   <string name="findmyphone_preference_title_flashlight">플래시 반짝이기</string>
   <string name="no_app_for_opening">이 파일을 열 수 있는 앱을 찾을 수 없음</string>
-  <string name="remote_keyboard_service">KDE Connect 원격 키보드</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">포인터</string>
   <string name="trusted_networks">신뢰할 수 있는 네트워크</string>
   <string name="trusted_networks_desc">신뢰할 수 있는 네트워크에서만 자동 발견 사용</string>

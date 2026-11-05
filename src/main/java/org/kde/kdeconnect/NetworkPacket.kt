@@ -253,6 +253,11 @@ class NetworkPacket private constructor(
             this.payloadSize = payloadSize
         }
 
+        fun setReadTimeout(milliseconds: Int) {
+            require(milliseconds > 0)
+            inputSocket?.soTimeout = milliseconds
+        }
+
         override fun close() {
             inputStream?.closeSafe()
             inputSocket?.closeSafe()

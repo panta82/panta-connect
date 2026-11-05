@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Enviar a un dispositivo</string>
   <string name="foreground_notification_no_devices">Non conectado a ningún dispositivo</string>
   <string name="foreground_notification_devices">Conectado a: %s</string>
@@ -236,7 +236,7 @@
   </string-array>
   <string name="block_notification_contents">Bloquear o contido das notificacións</string>
   <string name="block_notification_images">Bloquear as imaxes das notificacións</string>
-  <string name="pairing_title">Dispositivos con KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Outros dispositivos que estean a executar KDE Connect na mesma rede deberían aparecer aquí.</string>
   <string name="device_rename_title">Renomear o dispositivo</string>
   <string name="device_rename_confirm">Renomear</string>
@@ -309,7 +309,7 @@
   <string name="devices">Dispositivos</string>
   <string name="settings_rename">Nome do dispositivo</string>
   <string name="settings_dark_mode">Tema escuro</string>
-  <string name="settings_export_logs">Exportar os rexistros de KDE Connect</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Xerar un ficheiro con información de execución que pode axudar a solucionar problemas.</string>
   <string name="settings_more_settings_title">Máis opcións</string>
   <string name="settings_more_settings_text">As opcións específicas dun dispositivo atópanse en «Configuración dos complementos» no dispositivo.</string>
@@ -323,7 +323,7 @@
   <string name="block_images">Bloquear as imaxes nas notificacións</string>
   <string name="notification_channel_receivenotification">Notificacións desde outros dispositivos</string>
   <string name="no_app_for_opening">Non se atopou ningunha aplicación axeitada para abrir o ficheiro.</string>
-  <string name="remote_keyboard_service">Teclado remoto de KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Punteiro</string>
   <string name="trusted_networks">Redes de confianza</string>
   <string name="trusted_networks_desc">Restrinxir o descubrimento automático a redes coñecidas</string>

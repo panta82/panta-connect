@@ -1,0 +1,26 @@
+Categories:
+  - Connectivity
+License: GPL-2.0-only OR GPL-3.0-only
+AuthorName: Panta Connect contributors
+WebSite: https://panta82.github.io/panta-connect/
+SourceCode: https://github.com/panta82/panta-connect
+IssueTracker: https://github.com/panta82/panta-connect/issues
+AllowedAPKSigningKeys:
+  - 18e716baa1fcebc2bb189a7a4066f03ce318d6c87d072f25f4d10a170e385105
+Name: Panta Connect
+Summary: Paste desktop screenshots on Android with KDE Connect
+Description: |-
+  An independent KDE Connect Android fork with image clipboard reception.
+
+  Copy a screenshot on a paired desktop, then insert it into a supported Android
+  app using the keyboard's image clipboard suggestion. Stock KDE Connect Desktop
+  works without modifications. Text clipboard sync and Share image remain available.
+
+  Image transfers and temporary cache usage are bounded. Android-to-desktop
+  automatic clipboard sharing is subject to Android's background restrictions.
+
+  Based on KDE Connect and Jakob Müller Galvez's image clipboard implementation.
+  This is not an official KDE release. Corresponding fork source accompanies
+  each APK as a source archive.
+CurrentVersion: 0.1.0-beta.2
+CurrentVersionCode: 2

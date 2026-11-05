@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Poslano na napravo</string>
   <string name="foreground_notification_no_devices">Ni povezan z nobeno napravo</string>
   <string name="foreground_notification_devices">Povezan na: %s</string>
@@ -289,7 +289,7 @@
   </string-array>
   <string name="block_notification_contents">Blokiraj vsebine obvestil</string>
   <string name="block_notification_images">Blokiraj slike v obvestilih</string>
-  <string name="pairing_title">Naprave KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Tu bi se morale prikazati druge naprave, ki poganjajo KDE Connect v istem omrežju.</string>
   <string name="device_rename_title">Preimenuj napravo</string>
   <string name="device_rename_confirm">Preimenuj</string>
@@ -365,7 +365,7 @@
   <string name="devices">Naprave</string>
   <string name="settings_rename">Ime naprave</string>
   <string name="settings_dark_mode">Temna tema</string>
-  <string name="settings_export_logs">Izvozi dnevnike KDE Connect</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Ustvari datoteko z informacijami o izvajanju, ki lahko pomagajo pri odpravljanju težav.</string>
   <string name="settings_more_settings_title">Več nastavitev</string>
   <string name="settings_more_settings_text">Nastavitve posamezne naprave najdete v razdelku \'Nastavitve vtičnikov\' v napravi.</string>
@@ -380,7 +380,7 @@
   <string name="notification_channel_receivenotification">Obvestila ostalih naprav</string>
   <string name="findmyphone_preference_title_flashlight">Prižgi svetilko</string>
   <string name="no_app_for_opening">Ni primerne aplikacije za odpiranje te datoteke</string>
-  <string name="remote_keyboard_service">Oddaljena tipkovnica KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Kazalec</string>
   <string name="trusted_networks">Zaupanje vredna omrežja</string>
   <string name="trusted_networks_desc">Omejite samodejno odkrivanje na znana omrežja</string>

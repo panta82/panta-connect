@@ -121,7 +121,7 @@
   <string name="sftp_camera">Слике са камере</string>
   <string name="no_players_connected">Нисам нашао плејере</string>
   <string name="send_files">Пошаљи фајлове</string>
-  <string name="pairing_title">Уређаји КДЕ‑конекције</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Други уређаји на вашој мрежи на којима ради КДЕ‑конекција, појавиће се овде.</string>
   <string name="device_rename_title">Преименовање уређаја</string>
   <string name="device_rename_confirm">Преименуј</string>

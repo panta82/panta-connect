@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">جسر كِيدِي</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">أرسِل إلى جهاز</string>
   <string name="foreground_notification_no_devices">غير متصل بأي جهاز</string>
   <string name="foreground_notification_devices">متّصل بـ: %s</string>
@@ -303,7 +303,7 @@
   </string-array>
   <string name="block_notification_contents">احظر محتويات الإشعار</string>
   <string name="block_notification_images">احظر صور الإشعار</string>
-  <string name="pairing_title">أجهزة «جسر كِيدِي»</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">الأجهزة الأخرى التي تشغّل «جسر كِيدِي» وعلى نفس الشّبكة ستظهر هنا.</string>
   <string name="device_rename_title">أعد تسمية الجهاز</string>
   <string name="device_rename_confirm">أعد التّسمية</string>
@@ -377,7 +377,7 @@
   <string name="devices">الأجهزة</string>
   <string name="settings_rename">اسم الجهاز</string>
   <string name="settings_dark_mode">سمة مظلمة</string>
-  <string name="settings_export_logs">صدّر سجل جسر كِيدِي</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">أنشئ ملفًا يحتوي على معلومات التنفيذ التي يمكن أن تساعد في استكشاف المشكلات وإصلاحها.</string>
   <string name="settings_more_settings_title">المزيد من الإعدادات</string>
   <string name="settings_more_settings_text">يمكن العثور على إعدادات لكل جهاز ضمن ”إعدادات الملحقة“ من داخل الجهاز.</string>
@@ -392,7 +392,7 @@
   <string name="notification_channel_receivenotification">إشعارات من أجهزة أخرى</string>
   <string name="findmyphone_preference_title_flashlight">شغّل المصباح</string>
   <string name="no_app_for_opening">لا يوجد تطبيق مناسب لفتح هذا الملف</string>
-  <string name="remote_keyboard_service">لوحة مفاتيح بعيده لجسر كِيدِي</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">المؤشر</string>
   <string name="trusted_networks">الشّبكات الموثوقة</string>
   <string name="trusted_networks_desc">اقَصْر الاكتشاف الآليّ على الشبكات المعروفة</string>

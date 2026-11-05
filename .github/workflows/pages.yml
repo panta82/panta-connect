@@ -1,0 +1,49 @@
+name: Publish signed F-Droid repository
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release:
+        description: Release tag containing the locally signed repository bundle
+        required: true
+        default: v0.1.0-beta.2
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Download public repository bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release }}
+        run: |
+          mkdir -p release public
+          gh release download "$RELEASE_TAG" --pattern 'panta-connect-fdroid.tar.gz' --dir release
+          gh release download "$RELEASE_TAG" --pattern 'panta-connect-fdroid.tar.gz.sha256' --dir release
+          (cd release && sha256sum --check panta-connect-fdroid.tar.gz.sha256)
+          tar --extract --gzip --file release/panta-connect-fdroid.tar.gz --directory public
+          test -f public/repo/index-v1.jar
+          test -f public/repo/entry.jar
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
+        id: deployment

@@ -11,6 +11,14 @@ local.properties
 *.iml
 *.keystore
 !debug.keystore
+*.p12
+*.jks
+/signing.properties
+/.env
+/.env.*
+/IMAGE_CLIPBOARD_PLAN.md
+__pycache__/
+*.pyc
 .directory
 GPUCache/
 /release/

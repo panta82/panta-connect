@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Изпращане до устройство</string>
   <string name="foreground_notification_no_devices">Няма свързано устройство</string>
   <string name="foreground_notification_devices">Свързан с: %s</string>
@@ -239,7 +239,7 @@
   </string-array>
   <string name="block_notification_contents">Блокиране на съдържанието в известията</string>
   <string name="block_notification_images">Блокиране на изображения в известията</string>
-  <string name="pairing_title">Устройства на KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Тук трябва да се появят други устройства, работещи с KDE Connect в същата мрежа.</string>
   <string name="device_rename_title">Преименуване на устройство</string>
   <string name="device_rename_confirm">Преименуване</string>
@@ -312,7 +312,7 @@
   <string name="devices">Устройства</string>
   <string name="settings_rename">Име на устройство</string>
   <string name="settings_dark_mode">Тъмна тема</string>
-  <string name="settings_export_logs">Експортиране на дневниците на KDE Connect</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Генерирайте файл с информация за изпълнени команди, която може да помогне за отстраняването на проблеми.</string>
   <string name="settings_more_settings_title">Още настройки</string>
   <string name="settings_more_settings_text">Настройките за всяко устройство могат да бъдат намерени в раздел \"Настройки на плъгина\" в рамките на устройство.</string>
@@ -326,7 +326,7 @@
   <string name="block_images">Блокиране на изображения в известията</string>
   <string name="notification_channel_receivenotification">Известия от други устройства</string>
   <string name="no_app_for_opening">Не е намерено подходящо приложение за отваряне на този файл</string>
-  <string name="remote_keyboard_service">Отдалечена клавиатура KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Показалец</string>
   <string name="trusted_networks">Доверени мрежи</string>
   <string name="trusted_networks_desc">Ограничаване на автоматичното откриване до познати мрежи</string>

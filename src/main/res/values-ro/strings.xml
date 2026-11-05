@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Trimite către dispozitiv</string>
   <string name="foreground_notification_no_devices">Niciun dispozitiv conectat</string>
   <string name="foreground_notification_devices">Conectat la: %s</string>
@@ -264,7 +264,7 @@
   </string-array>
   <string name="block_notification_contents">Blochează conținutul notificărilor</string>
   <string name="block_notification_images">Blochează imaginile notificărilor</string>
-  <string name="pairing_title">Dispozitive KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Aici ar trebui să apară alte dispozitive ce rulează KDE Connect în aceeași rețea.</string>
   <string name="device_rename_title">Redenumește dispozitivul</string>
   <string name="device_rename_confirm">Redenumește</string>
@@ -338,7 +338,7 @@
   <string name="devices">Dispozitive</string>
   <string name="settings_rename">Denumire dispozitiv</string>
   <string name="settings_dark_mode">Tematică întunecată</string>
-  <string name="settings_export_logs">Exportă jurnale KDE Connect</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Generează un fișier cu informații despre execuție ce pot ajuta la depanarea defectelor.</string>
   <string name="settings_more_settings_title">Mai multe configurări</string>
   <string name="settings_more_settings_text">Configurările fiecărui dispozitiv le puteți găsi în „Configurare extensii” dintr-un dispozitiv.</string>
@@ -353,7 +353,7 @@
   <string name="notification_channel_receivenotification">Notificări de pe alte dispozitive</string>
   <string name="findmyphone_preference_title_flashlight">Clipește lanterna</string>
   <string name="no_app_for_opening">Nu a fost găsită nicio aplicație care să deschidă acest fișier</string>
-  <string name="remote_keyboard_service">Tastatura de la distanță KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Indicator</string>
   <string name="trusted_networks">Rețele de încredere</string>
   <string name="trusted_networks_desc">Restricționează descoperirea automată la rețele de încredere</string>

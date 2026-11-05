@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Envia a un dispositiu</string>
   <string name="foreground_notification_no_devices">No està connectat a cap dispositiu</string>
   <string name="foreground_notification_devices">Connectat a: %s</string>
@@ -273,7 +273,7 @@
   </string-array>
   <string name="block_notification_contents">Bloca el contingut de les notificacions</string>
   <string name="block_notification_images">Bloca les imatges de les notificacions</string>
-  <string name="pairing_title">Dispositius del KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Els altres dispositius que executin el KDE Connect a la mateixa xarxa han d\'aparèixer aquí.</string>
   <string name="device_rename_title">Reanomena el dispositiu</string>
   <string name="device_rename_confirm">Reanomena</string>
@@ -349,7 +349,7 @@
   <string name="devices">Dispositius</string>
   <string name="settings_rename">Nom del dispositiu</string>
   <string name="settings_dark_mode">Tema fosc</string>
-  <string name="settings_export_logs">Exporta els registres del KDE Connect</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Genera un fitxer amb informació d\'execució que pot ajudar a resoldre problemes.</string>
   <string name="settings_more_settings_title">Més opcions</string>
   <string name="settings_more_settings_text">La configuració per dispositiu es pot trobar a «Arranjament dels connectors» des d\'un dispositiu.</string>
@@ -364,7 +364,7 @@
   <string name="notification_channel_receivenotification">Notificacions des d\'altres dispositius</string>
   <string name="findmyphone_preference_title_flashlight">Encén la llanterna</string>
   <string name="no_app_for_opening">No s\'ha trobat cap aplicació adequada per a obrir aquest fitxer</string>
-  <string name="remote_keyboard_service">Teclat remot del KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Apuntador</string>
   <string name="trusted_networks">Xarxes de confiança</string>
   <string name="trusted_networks_desc">Restringeix el descobriment automàtic a les xarxes conegudes</string>

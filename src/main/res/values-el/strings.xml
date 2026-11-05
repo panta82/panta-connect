@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="foreground_notification_no_devices">Δεν είναι συνδεδεμένο σε συσκευή</string>
   <string name="foreground_notification_devices">Συνδεδεμένό σε: %s</string>
   <string name="foreground_notification_send_clipboard">Αποστολή προχείρου</string>
@@ -203,7 +203,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">Συσκευές KDE Connect</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Άλλες συσκευές με KDE Connect στο ίδιο δίκτυο θα εμφανίζονται εδώ.</string>
   <string name="device_rename_title">Μετονομασία συσκευής</string>
   <string name="device_rename_confirm">Μετονομασία</string>
@@ -276,7 +276,7 @@
   <string name="block_images">Φραγή εικόνων σε ειδοποιήσεις</string>
   <string name="notification_channel_receivenotification">Ειδοποιήσεις από άλλες συσκευές</string>
   <string name="no_app_for_opening">Δεν βρέθηκε κατάλληλη εφαρμογή για το άνοιγμα αυτού του αρχείου</string>
-  <string name="remote_keyboard_service">Απομακρυσμένο πληκτρολόγιο KDE Connect</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Δείκτης</string>
   <string name="trusted_networks">Έμπιστα δίκτυα</string>
   <string name="trusted_networks_desc">Να περιοριστεί η αυτόματη ανακάλυψη σε γνωστά δίκτυα</string>

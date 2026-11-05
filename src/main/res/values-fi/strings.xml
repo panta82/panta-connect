@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Lähetä laitteeseen</string>
   <string name="foreground_notification_no_devices">Ei laiteyhteyttä</string>
   <string name="foreground_notification_devices">Yhdistetty laitteeseen: %s</string>
@@ -263,7 +263,7 @@
   </string-array>
   <string name="block_notification_contents">Estä ilmoitusten sisältö</string>
   <string name="block_notification_images">Estä ilmoitusten kuvat</string>
-  <string name="pairing_title">KDE Connect -laitteet</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Muiden samassa verkossa olevien KDE Connectia käyttävien laitteiden pitäisi ilmestyä tähän.</string>
   <string name="device_rename_title">Muuta laitteen nimeä</string>
   <string name="device_rename_confirm">Muuta nimi</string>
@@ -337,7 +337,7 @@
   <string name="devices">Laitteet</string>
   <string name="settings_rename">Laitenimi</string>
   <string name="settings_dark_mode">Tumma teema</string>
-  <string name="settings_export_logs">Vie KDE Connectin lokit</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">Luo suoritustietotiedosto, josta voi olla apua ongelmien selvityksessä.</string>
   <string name="settings_more_settings_title">Lisää asetuksia</string>
   <string name="settings_more_settings_text">Laitekohtaiset asetukset löytyvät laitteen ”Liitännäisasetuksista”.</string>
@@ -352,7 +352,7 @@
   <string name="notification_channel_receivenotification">Muiden laitteiden ilmoitukset</string>
   <string name="findmyphone_preference_title_flashlight">Väläytä salamaa</string>
   <string name="no_app_for_opening">Tämän tiedoston avaamiseen sopivaa sovellusta ei löytynyt</string>
-  <string name="remote_keyboard_service">KDE Connect -etänäppäimistö</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Osoitin</string>
   <string name="trusted_networks">Luotetut verkot</string>
   <string name="trusted_networks_desc">Rajaa automaattihaku tunnettuihin verkkoihin</string>

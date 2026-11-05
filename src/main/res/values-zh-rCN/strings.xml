@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">发送到设备</string>
   <string name="foreground_notification_no_devices">未连接到任何设备</string>
   <string name="foreground_notification_devices">已连接到：%s</string>
@@ -265,7 +265,7 @@
   </string-array>
   <string name="block_notification_contents">屏蔽通知内容</string>
   <string name="block_notification_images">屏蔽通知图像</string>
-  <string name="pairing_title">KDE Connect 设备</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">其他在同一网络运行 KDE Connect 的设备会在此处显示。</string>
   <string name="device_rename_title">重命名设备</string>
   <string name="device_rename_confirm">重命名</string>
@@ -341,7 +341,7 @@
   <string name="devices">设备</string>
   <string name="settings_rename">设备名</string>
   <string name="settings_dark_mode">深色主题</string>
-  <string name="settings_export_logs">导出 KDE Connect 日志</string>
+  <string name="settings_export_logs">Export Panta Connect logs</string>
   <string name="settings_export_logs_text">生成一个包含程序执行信息的文件，有助于排查故障。</string>
   <string name="settings_more_settings_title">更多设置</string>
   <string name="settings_more_settings_text">每个设备的独立设置可以在设备页内的“插件设置”下找到。</string>
@@ -356,7 +356,7 @@
   <string name="notification_channel_receivenotification">来自其他设备的通知</string>
   <string name="findmyphone_preference_title_flashlight">闪烁手电筒</string>
   <string name="no_app_for_opening">没有找到合适的应用程序打开此文件</string>
-  <string name="remote_keyboard_service">KDE Connect 远程键盘</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">指针</string>
   <string name="trusted_networks">信任的网络</string>
   <string name="trusted_networks_desc">限制只在已知网络中启用自动发现</string>

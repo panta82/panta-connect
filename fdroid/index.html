@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Panta Connect, an independent KDE Connect Android fork for pasting desktop screenshots on your phone.">
+<title>Panta Connect</title>
+<style>
+  :root { color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.6; }
+  body { max-width: 48rem; margin: 4rem auto; padding: 0 1.5rem; }
+  h1 { line-height: 1.2; }
+  a { color: light-dark(#1257a0, #91c8ff); }
+  .button { display: inline-block; background: #1257a0; color: white; padding: .7rem 1rem; border-radius: .4rem; text-decoration: none; }
+  code { overflow-wrap: anywhere; }
+  footer { border-top: 1px solid #888; margin-top: 2rem; padding-top: 1rem; }
+</style>
+<main>
+  <h1>Panta Connect</h1>
+  <p>Copy a screenshot on your desktop and paste it on your Android phone through your keyboard's image clipboard suggestion. Panta Connect is an independent KDE Connect fork compatible with stock KDE Connect Desktop.</p>
+  <p><a class="button" href="https://panta82.github.io/panta-connect/repo/?fingerprint=912391A240B2C0ED437831EE659B6291D640FCD62A31C50876DBCCCA25F6E58D">Add the F-Droid repository</a></p>
+  <p>In F-Droid, open Settings, Repositories, then add this address:</p>
+  <p><code>https://panta82.github.io/panta-connect/repo/</code></p>
+  <details>
+    <summary>Repository signing fingerprint</summary>
+    <p><code>912391A240B2C0ED437831EE659B6291D640FCD62A31C50876DBCCCA25F6E58D</code></p>
+  </details>
+  <h2>Beta testing</h2>
+  <p>Version 0.1.0-beta.2 has been tested on an Xperia 10 III with Android 11, Gboard, and X. Desktop screenshot reception and image insertion passed with the screen on and after a short screen-off interval. Long-term background reliability and other devices still need testing.</p>
+  <p>Install it beside official KDE Connect and pair it separately. Allow background operation for reliable reception. Text clipboard sync and Share image remain available. Android restricts automatic clipboard reads in the background; supported paste actions depend on the keyboard and destination app.</p>
+  <p>Received images are temporary clipboard files, not a photo backup. This is a custom F-Droid repository, separate from the main F-Droid catalogue.</p>
+  <p><a href="https://github.com/panta82/panta-connect/releases">APK downloads and release notes</a> · <a href="https://github.com/panta82/panta-connect">Source and build instructions</a> · <a href="https://github.com/panta82/panta-connect/issues">Report an issue</a></p>
+</main>
+<footer>Based on KDE Connect and Jakob Müller Galvez's image clipboard work. This is not an official KDE release. The source and original contributor notices are available under their existing free software licenses.</footer>
+</html>

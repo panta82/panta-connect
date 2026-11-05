@@ -22,6 +22,7 @@ import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.atomic.AtomicLong
 
 class ClipboardListener {
     enum class ClipboardContentType {
@@ -45,13 +46,17 @@ class ClipboardListener {
         private set
     var updateTimestamp: Long = 0
         private set
+    var currentContentIsSensitive: Boolean = false
+        private set
+    private val updateVersion = AtomicLong()
+    private var applyingRemoteClipboard = false
 
-    private lateinit var cm: ClipboardManager
+    private val cm: ClipboardManager
 
-    private constructor(ctx: Context) {
+    internal constructor(ctx: Context) {
         context = ctx.applicationContext
+        cm = context.getSystemService<ClipboardManager>()!!
         Handler(Looper.getMainLooper()).post {
-            cm = context.getSystemService<ClipboardManager>()!!
             cm.addPrimaryClipChangedListener { this.onClipboardChanged() }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ClipboardPlugin.canSyncAutomatically(context)) {
@@ -81,20 +86,33 @@ class ClipboardListener {
     }
 
     fun onClipboardChanged() {
+        if (applyingRemoteClipboard) return
         try {
-            val clip = cm.primaryClip!!
+            val clip = cm.primaryClip
+            if (clip == null || clip.itemCount == 0) {
+                reserveUpdate()
+                currentContent = null
+                currentContentUri = null
+                currentContentIsSensitive = false
+                currentContentType = ClipboardContentType.Text
+                updateTimestamp = System.currentTimeMillis()
+                return
+            }
             val item = clip.getItemAt(0)
             val contentType = detectContentType(clip)
-            val uri = item.uri
+            val sensitive = contentType == ClipboardContentType.Password
+            val uri = imageUri(context, clip)
 
-            if (uri != null && (item.text == null || isImageUri(uri, clip))) {
-                if (uri == currentContentUri && currentContentType == ClipboardContentType.File) {
+            if (uri != null) {
+                if (uri == currentContentUri && currentContentType == ClipboardContentType.File && currentContentIsSensitive == sensitive) {
                     return
                 }
+                reserveUpdate()
                 updateTimestamp = System.currentTimeMillis()
                 currentContent = null
                 currentContentUri = uri
                 currentContentType = ClipboardContentType.File
+                currentContentIsSensitive = sensitive
 
                 for (observer in observers) {
                     observer.clipboardChanged(uri.toString(), ClipboardContentType.File)
@@ -106,10 +124,12 @@ class ClipboardListener {
             if (content == currentContent && contentType == currentContentType && currentContentUri == null) {
                 return
             }
+            reserveUpdate()
             updateTimestamp = System.currentTimeMillis()
             currentContent = content
             currentContentUri = null
             currentContentType = contentType
+            currentContentIsSensitive = sensitive
 
             for (observer in observers) {
                 observer.clipboardChanged(content, contentType)
@@ -120,49 +140,56 @@ class ClipboardListener {
     }
 
     fun setText(text: String?) {
-        if (this::cm.isInitialized) {
-            if (text == currentContent && currentContentUri == null) {
-                return
-            }
-            updateTimestamp = System.currentTimeMillis()
-            currentContent = text
-            currentContentUri = null
-            currentContentType = ClipboardContentType.Text
-            cm.setPrimaryClip(ClipData.newPlainText(null, text))
-        }
+        reserveUpdate()
+        if (text == currentContent && currentContentUri == null && !currentContentIsSensitive) return
+        applyClipboard(ClipData.newPlainText(null, text))
+        updateTimestamp = System.currentTimeMillis()
+        currentContent = text
+        currentContentUri = null
+        currentContentType = ClipboardContentType.Text
+        currentContentIsSensitive = false
     }
 
     fun setFile(uri: Uri) {
-        if (this::cm.isInitialized) {
-            if (uri == currentContentUri) {
-                return
-            }
-            updateTimestamp = System.currentTimeMillis()
-            currentContent = null
-            currentContentUri = uri
-            currentContentType = ClipboardContentType.File
-            cm.setPrimaryClip(ClipData.newUri(context.contentResolver, null, uri))
+        reserveUpdate()
+        if (uri == currentContentUri && !currentContentIsSensitive) return
+        applyClipboard(ClipData.newUri(context.contentResolver, null, uri))
+        updateTimestamp = System.currentTimeMillis()
+        currentContent = null
+        currentContentUri = uri
+        currentContentType = ClipboardContentType.File
+        currentContentIsSensitive = false
+    }
+
+    private fun applyClipboard(clip: ClipData) {
+        applyingRemoteClipboard = true
+        try {
+            cm.setPrimaryClip(clip)
+        } finally {
+            applyingRemoteClipboard = false
         }
     }
 
-    private fun isImageUri(uri: Uri, clip: ClipData): Boolean {
-        val description = clip.description
-        if ((0 until description.mimeTypeCount).any { description.getMimeType(it).startsWith("image/") }) {
-            return true
-        }
-        return try {
-            context.contentResolver.getType(uri)?.startsWith("image/") == true
-        } catch (_: Exception) {
-            false
-        }
-    }
+    fun reserveUpdate(): Long = updateVersion.incrementAndGet()
+
+    fun isCurrentUpdate(version: Long): Boolean = updateVersion.get() == version
 
     companion object {
         private var _instance: ClipboardListener? = null
 
         fun instance(context: Context): ClipboardListener {
-            // FIXME: The _instance we return won't be completely initialized yet since initialization happens on a new thread (why?)
             return _instance ?: ClipboardListener(context).also { _instance = it }
+        }
+
+        fun imageUri(context: Context, clip: ClipData): Uri? {
+            if (clip.itemCount == 0) return null
+            val uri = clip.getItemAt(0).uri ?: return null
+            if (clip.description.hasMimeType("image/*")) return uri
+            return try {
+                uri.takeIf { context.contentResolver.getType(it)?.startsWith("image/") == true }
+            } catch (_: Exception) {
+                null
+            }
         }
 
         fun detectContentType(clip: ClipData?): ClipboardContentType {

@@ -109,7 +109,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">KDE Connect-enheder</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Andre enheder som kører KDE Connect i samme netværk som dig, bør dukke op her.</string>
   <string name="device_rename_title">Omdøb enhed</string>
   <string name="device_rename_confirm">Omdøb</string>

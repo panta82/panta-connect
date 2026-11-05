@@ -13,13 +13,14 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
-import androidx.documentfile.provider.DocumentFile
 import org.kde.kdeconnect.NetworkPacket
 import org.kde.kdeconnect.helpers.FilesHelper
 import org.kde.kdeconnect.helpers.ThreadHelper
@@ -33,6 +34,19 @@ import java.io.File
 
 @LoadablePlugin
 class ClipboardPlugin : Plugin() {
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val imageQueueLock = Any()
+    private var pendingImage: ImageTransfer? = null
+    private var receivingImage = false
+    @Volatile private var destroyed = false
+    private val imageStore by lazy { ClipboardImageStore(File(context.cacheDir, "clipboard")) }
+
+    private data class ImageTransfer(val payload: NetworkPacket.Payload, val version: Long)
+
+    private fun onMainThread(action: () -> Unit) {
+        if (Looper.myLooper() == Looper.getMainLooper()) action() else mainHandler.post(action)
+    }
+
     override val displayName: String
         get() = context.resources.getString(R.string.pref_plugin_clipboard)
 
@@ -51,7 +65,7 @@ class ClipboardPlugin : Plugin() {
         val content = np.getString("content")
         when (np.type) {
             (PACKET_TYPE_CLIPBOARD) -> {
-                ClipboardListener.instance(context).setText(content)
+                onMainThread { if (!destroyed) ClipboardListener.instance(context).setText(content) }
                 return true
             }
             (PACKET_TYPE_CLIPBOARD_FILE) -> {
@@ -65,7 +79,10 @@ class ClipboardPlugin : Plugin() {
                     return false
                 }
                 if ("content" in np) { // change clipboard if content is in NetworkPacket
-                    ClipboardListener.instance(context).setText(content)
+                    onMainThread {
+                        val listener = ClipboardListener.instance(context)
+                        if (!destroyed && packetTime >= listener.updateTimestamp) listener.setText(content)
+                    }
                 }
                 return true
             }
@@ -75,7 +92,7 @@ class ClipboardPlugin : Plugin() {
 
     private val observer: ClipboardObserver = object : ClipboardObserver {
         override fun clipboardChanged(content: String, contentType: ClipboardListener.ClipboardContentType) {
-            if (contentType == ClipboardListener.ClipboardContentType.Password &&
+            if ((contentType == ClipboardListener.ClipboardContentType.Password || ClipboardListener.instance(context).currentContentIsSensitive) &&
                 preferences.getBoolean(
                     context.getString(R.string.clipboard_preference_key_skip_sensitive),
                     false,
@@ -118,40 +135,68 @@ class ClipboardPlugin : Plugin() {
     }
 
     private fun receiveClipboardFile(np: NetworkPacket) {
-        if (!np.hasPayload() || !np.has("filename")) {
-            Log.w(TAG, "Ignoring clipboard file without payload or filename")
-            np.payload?.close()
+        val payload = np.payload
+        if (payload == null) return
+        if (!np.has("filename") || payload.payloadSize !in 1..ClipboardImageStore.MAX_IMAGE_BYTES) {
+            Log.w(TAG, "Ignoring clipboard image with invalid metadata or size")
+            ThreadHelper.runOnNewThread { payload.close() }
             return
         }
-
-        val filename = np.getString("filename")
-        ThreadHelper.runOnNewThread {
-            val directory = File(context.cacheDir, "clipboard")
-            if (!directory.isDirectory && !directory.mkdirs()) {
-                Log.e(TAG, "Could not create clipboard directory")
-                np.payload?.close()
-                return@runOnNewThread
+        onMainThread {
+            if (destroyed) {
+                ThreadHelper.runOnNewThread { payload.close() }
+                return@onMainThread
             }
+            val transfer = ImageTransfer(payload, ClipboardListener.instance(context).reserveUpdate())
+            val discarded = synchronized(imageQueueLock) {
+                val previous = pendingImage
+                pendingImage = transfer
+                if (!receivingImage) {
+                    receivingImage = true
+                    ThreadHelper.runOnNewThread { receivePendingImages() }
+                }
+                previous
+            }
+            // Only the newest pending image is kept; there is at most one active download.
+            discarded?.let { ThreadHelper.runOnNewThread { it.payload.close() } }
+        }
+    }
 
-            val name = FilesHelper.findValidNonExistingFileName(DocumentFile.fromFile(directory), filename)
-            val file = File(directory, name)
+    private fun receivePendingImages() {
+        val listener = ClipboardListener.instance(context)
+        while (true) {
+            val transfer = synchronized(imageQueueLock) {
+                pendingImage.also {
+                    pendingImage = null
+                    if (it == null) receivingImage = false
+                }
+            } ?: return
+            var image: File? = null
             try {
-                val input = np.payload?.inputStream ?: throw RuntimeException("Payload has no input stream")
-                input.use { source ->
-                    file.outputStream().use { destination ->
-                        source.copyTo(destination)
+                val currentUri = listener.currentContentUri
+                val keep = if (currentUri?.authority == "${BuildConfig.APPLICATION_ID}.fileprovider") {
+                    currentUri.lastPathSegment?.let { File(context.cacheDir, "clipboard/$it") }
+                } else null
+                image = imageStore.receive(transfer.payload, keep) {
+                    !destroyed && listener.isCurrentUpdate(transfer.version)
+                }
+                val received = image
+                mainHandler.post {
+                    if (!destroyed && listener.isCurrentUpdate(transfer.version)) {
+                        try {
+                            val uri = FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.fileprovider", received)
+                            listener.setFile(uri)
+                        } catch (e: Exception) {
+                            received.delete()
+                            Log.e(TAG, "Cannot install clipboard image", e)
+                        }
+                    } else {
+                        received.delete()
                     }
                 }
-                if (np.payloadSize >= 0 && file.length() < np.payloadSize) {
-                    throw RuntimeException("Incomplete clipboard file: received ${file.length()} of ${np.payloadSize} bytes")
-                }
-                val uri = FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
-                ClipboardListener.instance(context).setFile(uri)
             } catch (e: Exception) {
-                file.delete()
-                Log.e(TAG, "Error receiving clipboard file", e)
-            } finally {
-                np.payload?.close()
+                image?.delete()
+                Log.w(TAG, "Clipboard image discarded", e)
             }
         }
     }
@@ -175,12 +220,20 @@ class ClipboardPlugin : Plugin() {
 
 
     override fun onCreate() {
-        ClipboardListener.instance(context).registerObserver(observer)
-        sendConnectPacket()
+        destroyed = false
+        onMainThread {
+            if (!destroyed) {
+                ClipboardListener.instance(context).registerObserver(observer)
+                sendConnectPacket()
+            }
+        }
     }
 
     override fun onDestroy() {
-        ClipboardListener.instance(context).removeObserver(observer)
+        destroyed = true
+        onMainThread { ClipboardListener.instance(context).removeObserver(observer) }
+        val discarded = synchronized(imageQueueLock) { pendingImage.also { pendingImage = null } }
+        discarded?.let { ThreadHelper.runOnNewThread { it.payload.close() } }
     }
 
     override val supportedPacketTypes: Array<String> =
@@ -215,12 +268,15 @@ class ClipboardPlugin : Plugin() {
             val clipboardManager = context.getSystemService<ClipboardManager>()!!
             val item: ClipData.Item
             if (clipboardManager.hasPrimaryClip()) {
-                item = clipboardManager.primaryClip!!.getItemAt(0)
+                val clip = clipboardManager.primaryClip ?: return
+                if (clip.itemCount == 0) return
+                item = clip.getItemAt(0)
                 // Don't check if the content is sensitive, just send it
-                if (item.text != null) {
-                    this.propagateClipboard(item.coerceToText(this.context).toString())
+                val image = ClipboardListener.imageUri(context, clip)
+                if (image != null) {
+                    this.propagateClipboard(image)
                 } else {
-                    item.uri?.let { this.propagateClipboard(it) }
+                    this.propagateClipboard(item.coerceToText(this.context).toString())
                 }
                 Toast.makeText(this.context, R.string.pref_plugin_clipboard_sent, Toast.LENGTH_SHORT).show()
             }

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">Panta Connect</string>
   <string name="manifest_label_share">Siųsti į įrenginį</string>
   <string name="foreground_notification_no_devices">Neprisijungta prie jokio įrenginio</string>
   <string name="foreground_notification_devices">Prisijungta prie: %s</string>
@@ -229,7 +229,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">KDE Connect įrenginiai</string>
+  <string name="pairing_title">Panta Connect Devices</string>
   <string name="pairing_description">Čia turėtų atsirasti kiti to paties tinklo įrenginiai, naudojantys KDE Connect.</string>
   <string name="device_rename_title">Pervadinti įrenginį</string>
   <string name="device_rename_confirm">Pervadinti</string>
@@ -303,7 +303,7 @@
   <string name="block_images">Blokuoti pranešimuose paveiksliukus</string>
   <string name="notification_channel_receivenotification">Pranešimai iš kitų įrenginių</string>
   <string name="no_app_for_opening">Šio failo atvėrimui nerasta jokios tinkamos programėlės</string>
-  <string name="remote_keyboard_service">KDE Connect nuotolinė klaviatūra</string>
+  <string name="remote_keyboard_service">Panta Connect Remote Keyboard</string>
   <string name="presenter_pointer">Rodyklė</string>
   <string name="trusted_networks">Patikimi tinklai</string>
   <string name="trusted_networks_desc">Apriboti automatinį aptikimą iki žinomų tinklų</string>

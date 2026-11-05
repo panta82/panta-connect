@@ -11,6 +11,13 @@ import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes.CHECKCAST
 import org.objectweb.asm.Opcodes.INVOKESTATIC
+import java.util.Properties
+
+val releaseSigningFile = providers.environmentVariable("PANTA_CONNECT_SIGNING_PROPERTIES")
+    .map(::File).getOrElse(File(System.getProperty("user.home"), ".config/panta-connect/signing.properties"))
+val releaseSigning = Properties().apply {
+    if (releaseSigningFile.isFile) releaseSigningFile.inputStream().use { load(it) }
+}
 
 buildscript {
     dependencies {
@@ -39,11 +46,11 @@ android {
     namespace = "org.kde.kdeconnect_tp"
     compileSdk = 37
     defaultConfig {
-        applicationId = "org.kde.kdeconnect_tp"
+        applicationId = "net.pantas.connect"
         minSdk = 23
         targetSdk = 37
-        versionCode = 13700
-        versionName = "1.37.0"
+        versionCode = providers.gradleProperty("forkVersionCode").orElse("2").get().toInt()
+        versionName = providers.gradleProperty("forkVersionName").orElse("0.1.0-beta.2").get()
         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
     buildFeatures {
@@ -74,11 +81,13 @@ android {
         }
     }
     signingConfigs {
-        getByName("debug") {
-            storeFile = file("debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
+        if (releaseSigningFile.isFile) {
+            create("forkRelease") {
+                storeFile = file(releaseSigning.getProperty("storeFile"))
+                storePassword = releaseSigning.getProperty("storePassword")
+                keyAlias = releaseSigning.getProperty("keyAlias")
+                keyPassword = releaseSigning.getProperty("keyPassword")
+            }
         }
     }
     buildTypes {
@@ -92,6 +101,7 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
+            if (releaseSigningFile.isFile) signingConfig = signingConfigs.getByName("forkRelease")
         }
     }
     lint {
